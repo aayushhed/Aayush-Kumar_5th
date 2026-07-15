@@ -51,7 +51,7 @@ void, enum
 
 
 
---------------------[LITERALS]:
+--------------------**[LITERALS]**:
 
 Definition:- any constant value given to a datatype is a literal
 
@@ -130,7 +130,7 @@ class Test {
 }
 
 
--------------------------[NON STATIC METHOD]---------------
+-------------------------**[NON STATIC METHOD]**---------------
 
 class Test1 {
 
@@ -217,7 +217,7 @@ public class Demo{
         System.out.println(num);
     }
 }
-****************** REFER TO TYPE.JAVA*********************** 
+****************** [REFER TO TYPE.JAVA]*********************** 
 
 
    NOTE-------1..[[PRIVATE] DECLARED CAN ONLY BE ACCESS IN THE CLASS ITSELF ]
