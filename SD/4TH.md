@@ -1,4 +1,4 @@
-------[BACK OF THE ENVELOPE]----------
+# [BACK OF THE ENVELOPE]
  
           TRAFFIC                        STORAGE
 
@@ -14,6 +14,7 @@
 
                                               {ROUND OF THE NUBERS TO THE NEAREST 100 OR 1000 FOR EASE OF CALCULATION}
 
+# NUMERICALS
 
 LET AN APPLICATION FACBOOK WHERE YOU CAN UPLOAD A TEXT AND IMAGE ONLY:
 char ->2byte            (1 byte= 8bits.)

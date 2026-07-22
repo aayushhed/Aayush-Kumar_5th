@@ -1,5 +1,5 @@
 ```SQL
-
+# LAB EXPERIMENT 3.2
 CREATE TABLE employees (
     emp_id INT PRIMARY KEY,
     emp_name VARCHAR(100) NOT NULL,
