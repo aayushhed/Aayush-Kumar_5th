@@ -1,4 +1,4 @@
-**[WRAPPER]**
+# [WRAPPER]
 CONVERSION OF DATATYPE AND OBJECTS:->>
 
 
@@ -10,9 +10,11 @@ PRIMITIVE DATATYPE---> OBJECT  *[BOXING]*
 OBJECT----> PRIMITIVE DATATYPE   *[UNBOXING]*
 
 //BOXING--
+ ```java
   int a=10;
   Integer num=Integer.valueof(a);
 
+ ```
 
 //UNBOXING--
 
@@ -20,11 +22,12 @@ int b=num.intvalue();
 
 NOTE:  THESE ARE NON-STATIC METHODS AS WE OPERATE WITH OBJECTS.
 
-*[AUTOBOXING]*
+# [AUTOBOXING]
    WHEN CONVERSION IS DONE BY COMPILER ITSELF.
 
 
-**[METHODS OF CONVERSION ]**      
+# [METHODS OF CONVERSION ]      
+```java
 
 //toString()--     
                                       //IT IS A STATIC METHOD AND PRESENT IN ALL WRAPPER CLASS.
@@ -34,6 +37,7 @@ NOTE:  THESE ARE NON-STATIC METHODS AS WE OPERATE WITH OBJECTS.
 //parseInt()--                                          // IT IS ALSO A STATIC METHOD.
 
     int r1=Integer.parseInt(s1);                                                          // Datatype.parseInt();
+```
 
 
 
@@ -42,7 +46,7 @@ NOTE:  THESE ARE NON-STATIC METHODS AS WE OPERATE WITH OBJECTS.
 
 
 
-*[CONSTRUCTOR]*
+# [CONSTRUCTOR]
 THESE ARE SPECIAL METHODS USED TO INITAILZE OBJECT..
 
 //syntax--
@@ -61,16 +65,21 @@ THESE ARE SPECIAL METHODS USED TO INITAILZE OBJECT..
 
 [DEFAULT]:
 
+```java
         Demo(){
 
         }
+```
 
 [PARAMETERIZED]:
   
+```java
         Demo(int a){
 
         }
+```
 
+```java
 import java.util.Scanner;
 
 public class Demo{
@@ -82,6 +91,7 @@ public class Demo{
         Demo d = new Demo(10);
     }
 }
+```
 
 
 
@@ -90,11 +100,12 @@ public class Demo{
     this.num=num;
 
 
------*[DATA HIDING]*----
+# [DATA HIDING]
 
 Data hiding is an OOP principle where the internal data of a class is protected from direct access using access modifiers such as private, and accessed through methods (getters/setters).
 
-/*
+```java
+
     class Student {
     private int age;  // Data hiding
 
@@ -107,7 +118,8 @@ Data hiding is an OOP principle where the internal data of a class is protected 
     }
 }
 
-*/
+
+```
 
 
   HOW METHOD IS FORMED IN JAVA AND  CHECKED:     
@@ -115,9 +127,9 @@ Data hiding is an OOP principle where the internal data of a class is protected 
                                2.EXACT MATCH
                                3.UNIQUENESS
 
-
-**(METHOD-BINDING)**
-**[DATA SCHEDULE]**  GLOBAL VARIALBE SHADOWS LOCAL VARIABLE ID NAME IS SAME. TO SOLVE THIS (this) KEYWORD IS USED.
+# (METHOD-BINDING)
+# [DATA SCHEDULE]
+         GLOBAL VARIALBE SHADOWS LOCAL VARIABLE ID NAME IS SAME. TO SOLVE THIS (this) KEYWORD IS USED.
 
                                  this.age = age;
 

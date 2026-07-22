@@ -32,6 +32,7 @@
    
    
    
+```java
 Keyword [48]
 
 Datatype:- byte, short, int, long, float, double, char, boolean
@@ -48,6 +49,7 @@ object related:- new, this, super, instance of
 exception related:-try, catch, finally, throw, throws
 
 void, enum
+```
 
 
 
@@ -113,6 +115,7 @@ ACCESS MODIFIERS      NON-ACCESS MODIFIERS        DATATYPE         NAME
 
 
 ------------------------[STATIC METHOD]
+```java
 class Test {
 
     static void show() {
@@ -128,10 +131,12 @@ class Test {
         Test.show();
     }
 }
+```
 
 
 -------------------------**[NON STATIC METHOD]**---------------
 
+```java
 class Test1 {
 
     void show1() {
@@ -147,6 +152,7 @@ class Test1 {
         obj.show();
     }
 }
+```
 
 
 /*\
@@ -161,6 +167,7 @@ PACKAGE--> SUBPACKAGES[14]--> FILE--> CLASS-->CODE
   |-------------------------|
 
 
+                           ```java
                             package student;
 
                             public class Student {
@@ -169,6 +176,7 @@ PACKAGE--> SUBPACKAGES[14]--> FILE--> CLASS-->CODE
                                 }
                             }
 
+                           ```
 
 -----------[TYPE]:
 
@@ -184,6 +192,7 @@ PACKAGE--> SUBPACKAGES[14]--> FILE--> CLASS-->CODE
 
 lang, utils, io, net, sql, etc.....
 
+```java
 
 Class A{                            
     show();                             
@@ -194,6 +203,7 @@ Class B{
     Class-name call    [static method]
 }
 
+```
 
 
 
@@ -206,6 +216,7 @@ nextDouble()
 next()--------  for string
 nextLine()------for string
 
+```java
 Import java.util.Scanner;
 
 public class Demo{
@@ -217,6 +228,7 @@ public class Demo{
         System.out.println(num);
     }
 }
+```
 ****************** [REFER TO TYPE.JAVA]*********************** 
 
 
