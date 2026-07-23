@@ -5,16 +5,3 @@ In React, props (short for "properties") are read-only arguments passed into com
 
 
 
-import Reacxt from 'react'
-
-function App(){
-    return(
-    <div>
-    <h2>Hello Aayush</h2>
-
-    </div>
-
-    );
-};
-
-export defaut App;

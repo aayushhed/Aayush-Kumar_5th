@@ -1,0 +1,32 @@
+# NETWORK TYPES
+
+[NETWORK TYPE CLASSIFIED ACCORDING TO THEIR COVERAGE AREA AND NUMBER OF CONNECTED DEVICES]
+                
+THREE TYPES OD NETWORKS:
+                            1. LAN(LOCAL AREA NETWORK)
+                            2. MAN(METROPILITAN AREA NETWORK)
+                            3. WAN(WIDE AREA NETWORK)
+
+# LAN 
+    HIGH SPPED
+    RANGE-1KM->2KM
+
+    CONNECTED VIA ETHERNET OR WIFI
+
+# MAN
+    AVERAGE SPEED
+    RANGE- 1KM->  50 KM
+
+    CONNECTED BY MAN TECHNOLOGY:
+    CDDI (Copper distributed data interface)
+    FDDI (Fibre distributed data interface)
+
+# WAN
+    COUNTRY WISE 
+    SLOW SPEED
+    
+    CONNECTED BY:
+    LEASE LINE, DIAL UP
+ **[ISP]**  (INTERNET SERVICE PROVIDER)
+
+ 
