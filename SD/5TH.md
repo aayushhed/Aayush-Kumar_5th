@@ -1,7 +1,7 @@
 TINY URL         FUNCTIONAL        AND          NON FUNCTIONAL REQUIREMENTS
 
-                1.                             1. UNIQUE URL 
-                                               2. HIGHLY AVAILABLE
+                1. CREATE SHORT URL            1. UNIQUE URL 
+                2. NEW LONG URL                2. HIGHLY AVAILABLE
                                                3. LOW LATENCY (redirection and converting of urls)
                                                4. 
 
@@ -65,3 +65,4 @@ So  6 K N
  IF THERE ARE MORE THAN ONE SERVER WITH LETS SAY FIRST SERVER STARTS FROM A COUNT=0 AND SECOND FROM 5M   BUT AFTER 5M IS EXHAUSETED THE SECOND SERVER WILL ALSO GIVE SAME CODE AS FIRST ONE.  SO WE USE A CENTRALIZED SERVER WHICH HAS A COUNT AND COMMUNICATES TO EACH SERVER AND AS NEW SEVRVICE IS REQUESTED IT GIVES INSTRUCTION TO ALL ERVERS TO COUNT++;
 
  DISADVANTAGE IS THAT IF CENTRAIZED GETS DOWN ALL SERVER DOWN.
+
