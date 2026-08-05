@@ -1,5 +1,5 @@
 # Exception Handling
-
+# [THROWABLE IS THE TOP CLASS OF EXCEPTION]
 flow of program stops due to an error in program, for handling such exception or error whe have handlers:
 
             1. try  --> Risky code (exception might be occuring)      
