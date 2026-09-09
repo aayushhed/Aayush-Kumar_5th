@@ -1,32 +1,37 @@
-# NETWORK TYPES
+# Network Types
 
-[NETWORK TYPE CLASSIFIED ACCORDING TO THEIR COVERAGE AREA AND NUMBER OF CONNECTED DEVICES]
-                
-THREE TYPES OD NETWORKS:
-                            1. LAN(LOCAL AREA NETWORK)
-                            2. MAN(METROPILITAN AREA NETWORK)
-                            3. WAN(WIDE AREA NETWORK)
+*Network types are classified according to their coverage area and number of connected devices.*
 
-# LAN 
-    HIGH SPPED
-    RANGE-1KM->2KM
+There are three main types of networks:
+1. **LAN** (Local Area Network)
+2. **MAN** (Metropolitan Area Network)
+3. **WAN** (Wide Area Network)
 
-    CONNECTED VIA ETHERNET OR WIFI
+---
 
-# MAN
-    AVERAGE SPEED
-    RANGE- 1KM->  50 KM
+## LAN (Local Area Network)
 
-    CONNECTED BY MAN TECHNOLOGY:
-    CDDI (Copper distributed data interface)
-    FDDI (Fibre distributed data interface)
+- **Speed**: High speed
+- **Range**: 1 km to 2 km
+- **Connection**: Connected via Ethernet or Wi-Fi.
 
-# WAN
-    COUNTRY WISE 
-    SLOW SPEED
-    
-    CONNECTED BY:
-    LEASE LINE, DIAL UP
- **[ISP]**  (INTERNET SERVICE PROVIDER)
+---
 
- 
+## MAN (Metropolitan Area Network)
+
+- **Speed**: Average speed
+- **Range**: 1 km to 50 km (typically spans a city)
+- **Connection Technologies**:
+  - **CDDI** (Copper Distributed Data Interface)
+  - **FDDI** (Fiber Distributed Data Interface)
+
+---
+
+## WAN (Wide Area Network)
+
+- **Speed**: Slow speed (compared to LAN/MAN)
+- **Range**: Country-wide/global span
+- **Connection Technologies**:
+  - Leased lines
+  - Dial-up
+  - Managed by an **ISP** (Internet Service Provider)

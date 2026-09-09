@@ -1,136 +1,138 @@
-# [WRAPPER]
-CONVERSION OF DATATYPE AND OBJECTS:->>
+# Java Wrapper Conversions and Constructor Basics
 
+---
 
-     1. CONVERT PRIMITIVE DATATYPE INTO OBJECTS IS BOXING.
-     2. VICE-VERSA IS UNBOXING.
+## 1. Wrapper Conversions (Boxing and Unboxing)
 
-PRIMITIVE DATATYPE---> OBJECT  *[BOXING]*
+Java allows conversion between primitive data types and their corresponding wrapper class objects.
 
-OBJECT----> PRIMITIVE DATATYPE   *[UNBOXING]*
+- **Boxing**: Converting a primitive data type into its wrapper class object.
+- **Unboxing**: Converting a wrapper class object back into its corresponding primitive data type.
+- **Autoboxing / Auto-unboxing**: Automatic conversions performed by the Java compiler.
 
-//BOXING--
- ```java
-  int a=10;
-  Integer num=Integer.valueof(a);
-
- ```
-
-//UNBOXING--
-
-int b=num.intvalue();
-
-NOTE:  THESE ARE NON-STATIC METHODS AS WE OPERATE WITH OBJECTS.
-
-# [AUTOBOXING]
-   WHEN CONVERSION IS DONE BY COMPILER ITSELF.
-
-
-# [METHODS OF CONVERSION ]      
+### Explicit Boxing Example
 ```java
-
-//toString()--     
-                                      //IT IS A STATIC METHOD AND PRESENT IN ALL WRAPPER CLASS.
-    string s1 =Integer.toString(a);                                                       //  Datatype.toString();
-
-
-//parseInt()--                                          // IT IS ALSO A STATIC METHOD.
-
-    int r1=Integer.parseInt(s1);                                                          // Datatype.parseInt();
+int a = 10;
+Integer num = Integer.valueOf(a); // Boxing using static valueOf() method
 ```
 
-
-
-
-**********************[JAVA-OOPS]**
-
-
-
-# [CONSTRUCTOR]
-THESE ARE SPECIAL METHODS USED TO INITAILZE OBJECT..
-
-//syntax--
-
-        ACCESS MODIFIER   constructor_name(){
-
-         }
-
-
-
-*[TYPES]*
-        1.DEFAULT              [CREATED BY COMPILER]
-        2.PARAMETERIZED        [BY USER]
-        3.NON-PARAMETERIZED    [BY USER]
-
-
-[DEFAULT]:
-
+### Explicit Unboxing Example
 ```java
-        Demo(){
-
-        }
+int b = num.intValue(); // Unboxing using non-static intValue() method
 ```
 
-[PARAMETERIZED]:
-  
+### Autoboxing & Auto-unboxing Example
 ```java
-        Demo(int a){
-
-        }
+Integer num2 = 20; // Autoboxing
+int c = num2;      // Auto-unboxing
 ```
 
-```java
-import java.util.Scanner;
+---
 
-public class Demo{
-    int num;
-    Demo(int num){                // compiler is being confused as which num to initialise.
-        num=num;
+## 2. String and Primitive Conversions
+
+Wrapper classes provide static utility methods for converting data types to and from Strings.
+
+### `toString()`
+Converts a primitive type into a String representation.
+
+```java
+int a = 10;
+String s1 = Integer.toString(a); // Using ClassName.toString()
+```
+
+### `parseInt()`
+Parses a String into its primitive numeric type counterpart.
+
+```java
+String s1 = "10";
+int r1 = Integer.parseInt(s1); // Using ClassName.parseInt()
+```
+
+---
+
+## 3. Constructors
+
+A **constructor** is a special member block/method of a class used to initialize new objects. It has the same name as the class and has no return type (not even `void`).
+
+### Syntax
+```java
+public class ClassName {
+    // Constructor
+    public ClassName() {
+        // Initialization code
     }
-    public static void main(String[] args){
+}
+```
+
+### Types of Constructors
+1. **Default Constructor**: Created automatically by the compiler if no constructors are explicitly declared in the class. It initializes default values (e.g., `0`, `null`).
+2. **Non-Parameterized Constructor**: A constructor declared explicitly by the programmer that accepts no arguments.
+3. **Parameterized Constructor**: A constructor declared by the programmer that accepts arguments/parameters to initialize instance fields.
+
+#### Constructor Shadowing Issue Example
+In the following example, the parameter name matches the instance variable name, causing variable shadowing (the local parameter hides the instance field):
+
+```java
+public class Demo {
+    int num; // Instance variable
+
+    Demo(int num) { // Parameter
+        num = num; // Assigns the local parameter to itself; doesn't initialize the instance variable!
+    }
+
+    public static void main(String[] args) {
         Demo d = new Demo(10);
+        System.out.println(d.num); // Prints 0 (default value), not 10!
     }
 }
 ```
 
+---
 
+## 4. The `this` Keyword
 
-**[THIS KEYWORD]**
-    
-    this.num=num;
+To resolve variable shadowing (where a local variable/parameter has the same name as an instance/global variable), we use the `this` keyword.
 
+- **`this`** represents the current object instance.
 
-# [DATA HIDING]
+### Resolving Shadowing
+```java
+public class Demo {
+    int num; // Instance variable
 
-Data hiding is an OOP principle where the internal data of a class is protected from direct access using access modifiers such as private, and accessed through methods (getters/setters).
+    Demo(int num) {
+        this.num = num; // 'this.num' refers to the instance field, 'num' refers to the parameter
+    }
+}
+```
+
+---
+
+## 5. Data Hiding (Encapsulation)
+
+**Data hiding** is an OOP principle of restricting direct access to the internal data (fields) of a class. This is achieved by declaring fields as `private` and exposing access only through `public` getter and setter methods.
 
 ```java
+class Student {
+    private int age; // Data hiding: cannot be accessed directly from outside
 
-    class Student {
-    private int age;  // Data hiding
-
+    // Setter method (with validation capability)
     public void setAge(int age) {
-        this.age = age;
+        if (age >= 0) {
+            this.age = age;
+        }
     }
 
+    // Getter method
     public int getAge() {
-        return age;
+        return this.age;
     }
 }
-
-
 ```
 
-
-  HOW METHOD IS FORMED IN JAVA AND  CHECKED:     
-                               1.EXISTANCE
-                               2.EXACT MATCH
-                               3.UNIQUENESS
-
-# (METHOD-BINDING)
-# [DATA SCHEDULE]
-         GLOBAL VARIALBE SHADOWS LOCAL VARIABLE ID NAME IS SAME. TO SOLVE THIS (this) KEYWORD IS USED.
-
-                                 this.age = age;
-
-
+### Method Signature Checks
+When compile-time method binding happens, Java checks:
+1. **Existence**: Does the method exist in the class?
+2. **Exact Match**: Do the parameter types and ordering match exactly?
+3. **Uniqueness**: Is the method signature unique (resolves method overloading)?

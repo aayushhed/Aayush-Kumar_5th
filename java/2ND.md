@@ -1,339 +1,309 @@
-   High-level language
-   
-   JAVA----JDK->JRE-->JVM
+# Java Basics and OOP Foundations
 
-      Write Code
-              │
-              ▼
-       Hello.java (Source Code)
-              │
-              │ javac (Java Compiler)
-              ▼
-       Hello.class (Bytecode)
-              │
-              │ JVM (Java Virtual Machine)
-              ▼
-     Class Loader loads .class file
-              │
-              ▼
-     Bytecode Verifier checks code
-              │
-              ▼
-     Interpreter / JIT Compiler
-              │
-              ▼
-      Machine Code (0s and 1s)
-              │
-              ▼
-          CPU Executes
-              │
-              ▼
-         Output on Screen
-   
-   
-   # [OBJECT CLASS IS THE TOP CLASS OF JAVA]
+---
 
+## 1. Java Execution Pipeline
 
-```java
-Keyword [48]
+Java is a high-level, platform-independent language. Below is the execution flow from source code to final CPU execution:
 
-Datatype:- byte, short, int, long, float, double, char, boolean
-
-General keyword:- if,else,switch, case, break, defult, return, continue, for, do, while
-
-Modifiers:- private, <default>, protect, static, abstract, final, synchronized, transient, volatile, native, strict
-
-
-class related:- class, interface, extends, implements, package,
-
-object related:- new, this, super, instance of
-
-exception related:-try, catch, finally, throw, throws
-
-void, enum
+```text
+       [ Write Code ]
+             │
+             ▼
+      Hello.java (Source Code)
+             │
+             │ javac (Java Compiler)
+             ▼
+      Hello.class (Bytecode - Platform Independent)
+             │
+             ├─────────────────────────────────────────────────┐
+             ▼ JVM (Java Virtual Machine)                      │
+     Class Loader (Loads .class file)                          │
+             │                                                 │ JRE (Java Runtime Environment)
+             ▼                                                 │
+     Bytecode Verifier (Checks code safety)                    │
+             │                                                 │
+             ▼                                                 │
+     Interpreter / JIT Compiler (Translates to machine code)   │
+             │                                                 │
+             ├─────────────────────────────────────────────────┘
+             ▼
+     Machine Code (0s and 1s)
+             │
+             ▼
+       [ CPU Executes ]
+             │
+             ▼
+      [ Output on Screen ]
 ```
 
+> [!NOTE]
+> The `Object` class is the top-level root class of all classes in Java (`java.lang.Object`).
 
+---
 
---------------------**[LITERALS]**:
+## 2. Keywords and Modifiers
 
-Definition:- any constant value given to a datatype is a literal
+Java has reserved keywords (currently 50+ keywords, historically 48 in early versions) categorized by their purpose:
 
-int num=10;
-[10 is constant data  and this is literal]
-[ literals have a datatype and it should match the one on the right]
+```text
+┌───────────────────┬────────────────────────────────────────────────────────────────────────┐
+│ Category          │ Keywords                                                               │
+├───────────────────┼────────────────────────────────────────────────────────────────────────┤
+│ Data Types        │ byte, short, int, long, float, double, char, boolean                   │
+├───────────────────┼────────────────────────────────────────────────────────────────────────┤
+│ Control Flow      │ if, else, switch, case, default, break, return, continue, for, do,     │
+│                   │ while                                                                  │
+├───────────────────┼────────────────────────────────────────────────────────────────────────┤
+│ Modifiers         │ private, public, protected, static, abstract, final, synchronized,     │
+│                   │ transient, volatile, native, strictfp                                  │
+├───────────────────┼────────────────────────────────────────────────────────────────────────┤
+│ Class / Interface │ class, interface, extends, implements, package, import                 │
+├───────────────────┼────────────────────────────────────────────────────────────────────────┤
+│ Object Related    │ new, this, super, instanceof                                           │
+├───────────────────┼────────────────────────────────────────────────────────────────────────┤
+│ Exceptions        │ try, catch, finally, throw, throws                                     │
+├───────────────────┼────────────────────────────────────────────────────────────────────────┤
+│ Others            │ void, enum, const*, goto* (*unused/reserved)                           │
+└───────────────────┴────────────────────────────────────────────────────────────────────────┘
+```
 
--------------------[TYPE]:
+---
 
-1.------Intergral:  int num=10;   //(10);    compiler checks type compactibility
-[byte/short/int/long]
+## 3. Literals and Implicit Typing
 
-2.------Floating Point:
-[float/double]
+### Literals
+A **literal** is any constant value assigned to a variable.
 
-3.------String:
-[string]
-4.------Char
-[char]
+```java
+int num = 10; // '10' is a literal
+```
 
-5.Boolean
+- Every literal has an associated data type. The compiler checks type compatibility between the literal and the variable type on the left.
+- **Literal Categories**:
+  1. **Integral**: `byte`, `short`, `int`, `long`
+  2. **Floating Point**: `float`, `double`
+  3. **String**: `String` (e.g., `"Hello"`)
+  4. **Character**: `char` (e.g., `'A'`)
+  5. **Boolean**: `boolean` (`true` or `false`)
 
+### Implicit Datatyping (Widening)
+When a smaller data type is assigned to a larger data type container, Java performs implicit casting.
 
---------IMPLICIT DATATYPING 
-[when a small datatype is stored in big containers   such as long b=123; // gives no error]
+```java
+long b = 123; // Valid, automatic conversion of int literal to long
+```
 
+---
 
+## 4. Static vs Non-Static Methods
 
-------METHOD[function in java]
+Methods in Java are blocks of code that execute a specific function. They are either **static** or **non-static**.
 
-------TYPE: 1.static   2. non static 
+### Static Method
+- Declared with the `static` keyword.
+- Belongs to the class itself, not to any object instance.
+- Can be called directly without creating an object.
 
-------IDENTIFIERS
-[An identifier is the name given to a variable, method, class, interface, package, or object. It is used to identify program elements.]
-
-[CLASS/METHOD/VARIABLE]
-
-
-------------------------[ACCESS MODIFIERS]
-Control who can access a class, method, or variable.  [IF NOT USED <default>]
-
-
-----------------------[NON-ACCESS MODIFIERS]
-Control how a class, method, or variable behaves.     [It is optional]
-
-static int num=20;
-        int num=12;
-
-ACCESS MODIFIERS      NON-ACCESS MODIFIERS        DATATYPE         NAME
-
-   <default>                 static                  int           num  []
-    public                   static                  void          main()
-    public                      x                    class         Test
-
-
-[num is a static integer variable with default (package-private) access.]
-[The main method is public, static, and returns nothing (void).]
-[Test is a public class. class is not a data type—it's the keyword used to declare a class.]
-
-
-------------------------[STATIC METHOD]
 ```java
 class Test {
-
     static void show() {
         System.out.println("This is a static method.");
     }
 
     public static void main(String[] args) {
-
-        // No object needed
-        show();
-
-        // OR
-        Test.show();
+        show();      // Direct call
+        Test.show(); // Call using class name
     }
 }
 ```
 
-
--------------------------**[NON STATIC METHOD]**---------------
+### Non-Static Method
+- Declared without the `static` keyword.
+- Belongs to an object instance.
+- Can only be called after instantiating an object of the class.
 
 ```java
 class Test1 {
-
-    void show1() {
+    void show() {
         System.out.println("This is a non-static method.");
     }
 
     public static void main(String[] args) {
-
-        // Create object
-        Test obj = new Test();
-
-        // Call method using object
-        obj.show();
+        Test1 obj = new Test1(); // Create object
+        obj.show();              // Call using object reference
     }
 }
 ```
 
+---
 
-/*\
------PACKAGES(Layman-Folder of class)
+## 5. Packages
 
+A **package** is a container (namespace) used to group related classes, interfaces, and subpackages.
+
+### Directory Structure Example
+```text
 Project
 │
-└── student
-      Student.java
-
-PACKAGE--> SUBPACKAGES[14]--> FILE--> CLASS-->CODE
-  |-------------------------|
-
-
-                           ```java
-                            package student;
-
-                            public class Student {
-                                public void display() {
-                                    System.out.println("Hello");
-                                }
-                            }
-
-                           ```
-
------------[TYPE]:
-
-1. USER DEFINED
-
-2. PRE-DEFINED:
-
-                 Java Libarary - rt.jar  
-               [java]          [javax or Jakarta]
-             core java            advance java
-
--------------[SUBPACKAGE]
-
-lang, utils, io, net, sql, etc.....
-
-```java
-
-Class A{                            
-    show();                             
-}
-
-Class B{
-    object-name call   [non-static method]
-    Class-name call    [static method]
-}
-
+└── student/           <-- Package folder
+      └── Student.java <-- Class file
 ```
 
-
-
--------[SCANNER FOR INPUT]    (non static method)
-
-nextInt()
-nextFloat()   ------All three for numbers
-nextDouble()
-
-next()--------  for string
-nextLine()------for string
-
 ```java
-Import java.util.Scanner;
+package student;
 
-public class Demo{
-    public static void main(Strings[] args){
-        Scanner sc=new Scanner(System.in);
-
-        int num=sc.nextInt();
-
-        System.out.println(num);
+public class Student {
+    public void display() {
+        System.out.println("Hello from Student class!");
     }
 }
 ```
-****************** [REFER TO TYPE.JAVA]*********************** 
 
+### Types of Packages
+1. **User-Defined Packages**: Created by the developer.
+2. **Pre-defined Packages**: Provided by the Java Standard Library (historically packed in `rt.jar`):
+   - `java.*`: Core Java APIs (e.g., `java.lang`, `java.util`, `java.io`, `java.net`).
+   - `javax.*` / `jakarta.*`: Advanced or Enterprise Java APIs (e.g., servlets, database connections).
 
-   NOTE-------1..[[PRIVATE] DECLARED CAN ONLY BE ACCESS IN THE CLASS ITSELF ]
-              2..[[PROTECTIVE] CAN BE ACCESSED WITHIN PACKAGE AND OUTSIDE THE PACKAGE WITH CONDITION]
-              3..[[PUBLIC] CAN BE ACCESSED ANY-WHERE]
+---
 
+## 6. Scanner Class (User Input)
 
-                                    [METHOD]                                       [VARIABLE]
-                 CLASS         STATIC      NON STATIC                  LOCAL         STATIC          INSTANCE
-PRIVATE            x             y             y                         x             y                y
-<default>          y             y             y                         x             y                y
-PROTECTED          x             y             y                         x             y                y
-PUBLIC             y             y             y                         x             y                y
+The `Scanner` class (`java.util.Scanner`) is used to read input from different sources, such as keyboard input (`System.in`).
 
+### Common Scanner Methods
+- `nextInt()`: Reads an `int`
+- `nextFloat()`: Reads a `float`
+- `nextDouble()`: Reads a `double`
+- `next()`: Reads a single word (splits on whitespace)
+- `nextLine()`: Reads a whole line/sentence
 
- NOTE---------------1.[ONLY ONE PUBLIC CLASS IN A FILE]
-                    2.[MORE THAN ONE DEFAULT CLASS IN A SINGLE FILE]
-                    3.[CAN MAKE A CLASS IN A FILE WITHOUT MAIN FUNCTION]  NON-EXECUTABLE CLASS.
-                    4.[ALL PREDEFINED CLASSES ARE NON-EXECUTABLE CLASS]
+### Code Example
+```java
+import java.util.Scanner;
 
+public class Demo {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.print("Enter an integer: ");
+        int num = sc.nextInt();
+        
+        System.out.println("You entered: " + num);
+        sc.close(); // Close resources
+    }
+}
+```
 
---------------------------------------------------------------------------------------------------------------------------------
+---
 
+## 7. Access Modifiers
 
+Access modifiers control the visibility and access level of classes, constructors, variables, and methods.
 
-                                                         [JAVA-OOPS]
-            [CLASS-BLUEPRINT]                                                 [OBJECT-INSTANCE]
------------------------[CLASS ARE LOGICAL ENTITES. CLASS DO NOT OCCUPIES SAPCE.]-------------------
+### Access Levels
+- **`private`**: Accessible only within the declaring class itself.
+- **`<default>`** (no keyword): Accessible only within classes in the same package (package-private).
+- **`protected`**: Accessible within the same package, and by subclasses in other packages.
+- **`public`**: Accessible from any package in the project.
 
-                    CLASS ENTITIES:                             OBJECT ENTITIES:
-                            NAME                  -                      IDENTITY
-                            VARAIABLE             -                       DATA 
-                            METHOD                -                       BEHAVIOR
+### Applicability Table
 
+| Access Modifier | Class | Static Method | Non-Static Method | Local Variable | Static Variable | Instance Variable |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **`private`** | ❌ | ✅ | ✅ | ❌ | ✅ | ✅ |
+| **`<default>`** | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ |
+| **`protected`** | ❌ | ✅ | ✅ | ❌ | ✅ | ✅ |
+| **`public`** | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ |
 
+### Key Class Rules
+1. There can be at most **one public class** per source file.
+2. The source file name must match the name of the public class.
+3. You can have **multiple default class declarations** in a single file.
+4. You can declare and compile a class file without a `main` method (Non-Executable class). All predefined API library classes are non-executable.
 
-        CREATING OBJECT
+---
 
-      Demo demo = new demo();
+## 8. OOP Foundations: Class and Object
 
-   NOTE: 
-        1.demo IS A NON PRIMITIVE DATAYPE(i.e class).
-        2.new KEYWORD CREATED OBJECT.
+### Class
+- A blueprint or template from which objects are created.
+- Logical entities; they do not occupy memory space.
 
+### Object
+- A physical instance of a class.
+- Occupies memory space in the heap.
 
---------3.JVM MEMORY:
-          -> STACK
-          -> HEAP
-          -> METHOD AREA
-          -> PC REGISTER
-          -> NATIVE METHOD STACK
+| Class Entities (Template) | Object Entities (Instance) |
+| :--- | :--- |
+| Name | Identity (reference address) |
+| Variables | Data (state/attributes) |
+| Methods | Behavior (operations) |
 
-        4. JVM RUNS THE CODE AND ENCOUNTER new KEYWORD
-        5. JVM CREATES A BUFFER AREA FOR new KEYWORD AFTER THAT JVM PROVIDES REFRENCE ID TO BUFFER AREA AND PUT IN THE REFRENCE BARRIER.
-        6. NOW demo(); CONSTRUCTOR IS PUT IN THE OBJECT.
-          (refrence barrier variable)
-        7. OBJECT IS CREATED AT THE RUNTIME BY JVM IN HEAP MEMORY.
+### Creating an Object
+```java
+Demo demo = new Demo();
+```
+- `Demo`: The data type of the reference variable (non-primitive class type).
+- `demo`: The reference variable stored in the **Stack**.
+- `new`: Keyword that instantiates the object dynamically.
+- `Demo()`: The constructor used to initialize the object state.
 
-        8. PC REGISTER IS LIKE A CACHE FOR JVM.
+---
 
-        9. JAVA IS MADE FORM "C" LANGUAGE AND WHEN NEEDED IT IS IN NATIVE METHOD STACK  FOR-ex: CLONE.
+## 9. JVM Memory Architecture
 
-        10. ALL NON STATIC RESOURCES STORES INSIDE OBJECT-->[OBJECT IS STORED INSIDE HEAP].
+The JVM separates runtime data areas to optimize memory usage:
 
+1. **Stack Memory**:
+   - Stores local variables and reference variables pointing to objects in the heap.
+   - Every method call gets its own stack frame.
+2. **Heap Memory**:
+   - Stores all actual objects and their non-static instance variables.
+   - Objects are created here at runtime via the `new` keyword.
+3. **Method Area**:
+   - Stores class structures, static variables, methods, constants, and bytecode.
+4. **PC Register**:
+   - Stores the address of the JVM instruction currently being executed (acts like a cache).
+5. **Native Method Stack**:
+   - Stores instructions for native methods written in C/C++ (e.g., `clone()`).
 
+### Instance Lifecycle
+1. When JVM encounters the `new` keyword, it allocates memory block space in the **Heap**.
+2. It assigns a unique Reference ID to this memory block.
+3. The reference variable in the **Stack** stores this Reference ID.
+4. The constructor (e.g., `demo()`) executes to initialize the object.
 
-                     [STATIC]                VS               [NON-STATIC]
+---
 
-[GET MEMORY]        METHOD AREA                               HEAP[OBJECT]
-                    BELONG TO CLASS                           BELONG TO OBJECT
-[GET MEMORY]        SINGLE TIME MEMORY                        MULTIPLE TIME
-[GET MEMORY]        CLASS LOADING TIME                        AT RUN TIME
+## 10. Static vs Non-Static Scope
 
+| Characteristic | Static Scope | Non-Static Scope |
+| :--- | :--- | :--- |
+| **Memory Allocation** | Method Area | Heap Memory (Inside object) |
+| **Association** | Belongs to the Class | Belongs to the Object |
+| **Frequency** | Allocated once (single copy shared by all) | Allocated per instance |
+| **Allocation Time** | Class loading time | Runtime (at object creation) |
 
+---
 
+## 11. Wrapper Classes
 
-************  REFER TO GOOD.JAVA*************
+Wrapper classes provide a way to use primitive data types as objects (e.g., for Collections frameworks).
 
+| Primitive Type | Wrapper Class |
+| :--- | :--- |
+| `byte` | `Byte` |
+| `short` | `Short` |
+| `int` | `Integer` |
+| `long` | `Long` |
+| `float` | `Float` |
+| `double` | `Double` |
+| `char` | `Character` |
+| `boolean` | `Boolean` |
 
-------------------------[WRAPPER-CLASS]-----------------------------------------
-                        [PRIMITVE DATATYPE AS A CLASS]
+### Default Values
 
-                            byte-----------> Byte
-                            short----------->Short
-                            int------------->Integer
-                            long------------>Long
-                            double---------> Double
-                            float----------> Float
-                            char ----------->Char
-                            boolean--------->Boolean
-
-
-stataic Integer num;  [BY DEFAULT IT IS NULL]
-
-static int a;         [BY DEFAULT IT IS 0]
-
-
-
-
-
-
-
-
-
-
+- **Primitive type**: `int a;` defaults to `0`.
+- **Wrapper class object**: `Integer num;` defaults to `null` because it is an object reference.

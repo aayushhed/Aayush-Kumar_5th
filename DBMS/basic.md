@@ -1,95 +1,99 @@
-```SQL
+# SQL Basic DDL and DML Commands
+
+A quick reference guide for basic Data Definition Language (DDL) and Data Manipulation Language (DML) commands in SQL.
+
+---
+
+## 1. Table Creation and Data Insertion
+
+```sql
+-- Create an employee table
 CREATE TABLE Emp_krg (
     emp_id INT PRIMARY KEY,
     emp_name VARCHAR(100),
-    salary NUMERIC(10,2)
+    salary NUMERIC(10, 2)
 );
 
-
-
--- Insert Data
-INSERT INTO Emp_krg(emp_id,emp_name,salary) VALUES
+-- Insert sample records
+INSERT INTO Emp_krg (emp_id, emp_name, salary) 
+VALUES
 (101, 'Rahul', 50000),
 (102, 'Priya', 60000),
 (103, 'Amit', 55000);
 
-SELECT * FROM EMP_KRG
+-- Query the table
+SELECT * FROM EMP_KRG;
+```
 
--- DDL
+---
 
--- CREATE , ALTER,RENAME, DROP  ,TRUNCATE
+## 2. Table Structure Modifications (DDL)
 
--- ALTER
+DDL commands modify the table schema or structure.
 
--- (I) ADD NEW COLUMN IN EXISTING TABLE
+```sql
+-- I. Add a new column
 ALTER TABLE EMP_KRG
-ADD COLUMN GENDER VARCHAR(10)
+ADD COLUMN gender VARCHAR(10);
 
-SELECT * FROM EMP_KRG
+SELECT * FROM EMP_KRG;
 
-
--- (II) ADD CONSTRAINTS IE-> NOT NULL
-
+-- II. Add a NOT NULL constraint to a column
 ALTER TABLE EMP_KRG
-ALTER COLUMN GENDER SET NOT NULL
+ALTER COLUMN gender SET NOT NULL;
 
---(III) CHAGE THE DATA TYPE OF CUURNET EXISTING COLUMN
-
-
+-- III. Change the data type of an existing column
 ALTER TABLE EMP_KRG
-ALTER COLUMN GENDER TYPE VARCHAR(100)
-SELECT * FROM EMP_KRG
+ALTER COLUMN gender TYPE VARCHAR(100);
 
--- (IV)
--- CHANGING THE NAME EOF THE COLUMN_NAME
+SELECT * FROM EMP_KRG;
 
+-- IV. Rename an existing column
 ALTER TABLE EMP_KRG
+RENAME SALARY TO emp_salary;
 
-RENAME SALARY TO EMP_SALARY
-
--- (V) CHANGE TABLE NAME EMP_KRG TO  SAMPLE_EMP_NAME
-
+-- V. Rename the table
 ALTER TABLE EMP_KRG
-RENAME TO SAMPLE_EMP_NAME
+RENAME TO SAMPLE_EMP_NAME;
 
-SELECT * FROM SAMPLE_EMP_NAME
+SELECT * FROM SAMPLE_EMP_NAME;
 
--- (VI)
-
+-- VI. Drop a column
 ALTER TABLE SAMPLE_EMP_NAME
-DROP COLUMN GENDER 
+DROP COLUMN gender;
 
--- (VII)
+-- VII. Truncate the table (removes all records, preserves structure)
+TRUNCATE TABLE SAMPLE_EMP_NAME;
 
-TRUNCATE TABLE SAMPLE_EMP_NAME
--- (VIII)
+-- VIII. Drop the table (completely deletes the table)
+DROP TABLE SAMPLE_EMP_NAME;
+```
 
-DROP TABLE SAMPLE_EMP_NAME
+---
 
+## 3. Data Modification (DML)
 
--- DML
--- INSERT ,DELETE ,UPDATE
-(I)
+DML commands modify the data inside the table.
+
+```sql
+-- I. Update values using conditional OR logic
 UPDATE EMP_KRG
-SET GENDER ='Male'
-Where EMP_ID =101 OR 103
+SET gender = 'Male'
+WHERE emp_id = 101 OR emp_id = 103;
 
--- (II)
+-- II. Update values using the IN operator
 UPDATE EMP_KRG
-SET GENDER ='Male'
-Where EMP_ID IN (101,103)
+SET gender = 'Male'
+WHERE emp_id IN (101, 103);
 
 UPDATE EMP_KRG
-SET GENDER ='Female'
-Where EMP_ID IN (102)
+SET gender = 'Female'
+WHERE emp_id IN (102);
 
--- (III)
-
+-- III. Delete specific rows matching a condition
 DELETE FROM EMP_KRG
-WHERE EMP_ID%2=1
+WHERE emp_id % 2 = 1;
 
-
-
-Select * from EMP_KRG
-
+-- Query the final state
+SELECT * FROM EMP_KRG;
 ```

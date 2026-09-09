@@ -8,11 +8,11 @@ Unlike the OSI model, which is mainly a **reference model**, the TCP/IP model is
 
 ---
 
-# Features of TCP/IP Model
+## Features of TCP/IP Model
 
-- Used by the Internet.
-- Consists of **4 layers**.
-- Supports communication between heterogeneous systems.
+- Standard protocol suite used by the Internet.
+- Consists of **4 structured layers**.
+- Supports communication between heterogeneous systems (different hardware/OS).
 - Highly scalable and reliable.
 - Provides end-to-end communication.
 - Supports routing across multiple networks.
@@ -20,264 +20,154 @@ Unlike the OSI model, which is mainly a **reference model**, the TCP/IP model is
 
 ---
 
-# Layers of TCP/IP Model
+## Layers of TCP/IP Model
 
-|          Layer        |                  Main Function                      |        Common Protocols          | Devices          |
-|-----------------------|-----------------------------------------------------|----------------------------------|------------------|
-|      Application      | Provides services to user applications              | HTTP, HTTPS, FTP, SMTP, DNS, SSH | Gateway          |
-|       Transport       | End-to-end communication, reliability, flow control | TCP, UDP                         | Firewall         |
-|        Internet       | Logical addressing and routing                      | IP, ICMP, ARP, IGMP              | Router           |
-| Network Access (Link) | Physical transmission of data over network          | Ethernet, Wi-Fi, PPP             | Switch, Hub, NIC |
+| Layer | Main Function | Common Protocols | Devices |
+| :--- | :--- | :--- | :--- |
+| **Application** | Provides services directly to user applications | HTTP, HTTPS, FTP, SMTP, DNS, SSH | Gateway |
+| **Transport** | End-to-end communication, reliability, flow control | TCP, UDP | Firewall |
+| **Internet** | Logical addressing and routing | IP, ICMP, ARP, IGMP | Router |
+| **Network Access (Link)** | Physical transmission of data over network | Ethernet, Wi-Fi, PPP | Switch, Hub, NIC |
 
 ---
 
-# Layer 4 – Application Layer
+## Layer 4 – Application Layer
 
-The **Application Layer** is the highest layer of the TCP/IP model. It provides network services directly to user applications.
+The **Application Layer** is the highest layer of the TCP/IP model. It provides network services directly to user applications. This layer combines the responsibilities of the **Application, Presentation, and Session layers** of the OSI model.
 
-This layer combines the responsibilities of the **Application, Presentation, and Session layers** of the OSI model.
+### Functions
+- Provides an interface between the user and the network.
+- Handles web browsing, email communication, and file transfer.
+- Enables remote login and name resolution.
+- Formats, encrypts, and decrypts data.
+- Manages communication sessions.
 
-## Functions
-
-- Provides interface between user and network.
-- Handles web browsing.
-- Email communication.
-- File transfer.
-- Remote login.
-- Name resolution.
-- Data formatting.
-- Encryption and decryption.
-- Session management.
-
-## Common Protocols
+### Common Protocols
 
 | Protocol | Purpose |
-|----------|----------|
-| HTTP | Access web pages |
-| HTTPS | Secure web browsing |
-| FTP | File Transfer |
-| SMTP | Sending Email |
-| POP3 | Receiving Email |
-| IMAP | Managing Email |
-| DNS | Domain Name Resolution |
-| DHCP | Automatic IP assignment |
-| SSH | Secure Remote Login |
-| Telnet | Remote Login (Not Secure) |
+| :--- | :--- |
+| **HTTP** | Access web pages in plaintext |
+| **HTTPS** | Secure, encrypted web browsing |
+| **FTP** | File Transfer Protocol |
+| **SMTP** | Sending emails |
+| **POP3** | Receiving emails |
+| **IMAP** | Managing emails on server |
+| **DNS** | Domain Name Resolution |
+| **DHCP** | Automatic IP address assignment |
+| **SSH** | Secure Remote Login |
+| **Telnet** | Unencrypted Remote Login |
 
-## Example
-
-When you open **www.google.com**:
-
-1. Browser creates an HTTP request.
+### Example (Accessing google.com)
+When you open `www.google.com`:
+1. The browser creates an HTTP/HTTPS request.
 2. HTTPS encrypts the request.
 3. DNS converts the domain name into an IP address.
-4. Request is sent to the Transport layer.
+4. The request is passed to the Transport layer.
 
 ---
 
-# Layer 3 – Transport Layer
+## Layer 3 – Transport Layer
 
-The **Transport Layer** ensures reliable communication between sender and receiver.
+The **Transport Layer** ensures reliable communication between the sender and receiver. It divides data into smaller pieces called **segments** and guarantees correct, ordered delivery.
 
-It divides data into smaller pieces called **segments** and guarantees correct delivery.
-
-## Functions
-
-- End-to-end communication.
-- Segmentation.
-- Error detection.
-- Error recovery.
+### Functions
+- End-to-end communication setup.
+- Segmentation and reassembly.
+- Error detection and recovery.
 - Flow control.
-- Reliability.
-- Port addressing.
-- Multiplexing.
+- Port addressing and multiplexing.
+
+### TCP (Transmission Control Protocol)
+TCP is a **connection-oriented** protocol. Before sending data, it establishes a virtual connection using a **Three-Way Handshake**.
+
+- **Features**:
+  - Reliable delivery
+  - Ordered data delivery
+  - Error checking and flow control
+  - Explicit acknowledgments
+  - Retransmission of lost packets
+- **Used By**: HTTP, HTTPS, FTP, SMTP, SSH
+
+### UDP (User Datagram Protocol)
+UDP is a **connectionless** protocol. It sends data packets ("datagrams") without verifying that they arrive successfully.
+
+- **Features**:
+  - Fast transmission (low overhead)
+  - No acknowledgments
+  - No retransmission
+  - No flow control
+- **Used By**: Video Streaming, Online Games, Live Broadcasts, DNS Queries, VoIP
+
+### TCP vs UDP
+
+| Feature | TCP | UDP |
+| :--- | :--- | :--- |
+| **Connection** | Connection-oriented | Connectionless |
+| **Reliability** | Reliable | Unreliable |
+| **Speed** | Slower (due to overhead) | Faster (lightweight) |
+| **Error Checking** | Robust error checking | Minimal error checking |
+| **Order** | Guaranteed order | No guaranteed order |
+| **Common Use Cases** | Web pages, emails, files | Streaming, DNS, gaming |
 
 ---
 
-## TCP (Transmission Control Protocol)
+## Layer 2 – Internet Layer
 
-TCP is a **connection-oriented** protocol.
+The **Internet Layer** is responsible for moving packets from the source network to the destination network using routing algorithms and logical IP addresses.
 
-Before sending data, it establishes a connection using the **Three-Way Handshake**.
+### Functions
+- Routing and path selection.
+- Logical addressing.
+- Packet forwarding.
+- Fragmentation and reassembly.
 
-### Features
+### Important Protocols
 
-- Reliable
-- Ordered delivery
-- Error checking
-- Flow control
-- Acknowledgement
-- Retransmission of lost packets
+#### IP (Internet Protocol)
+Provides logical addressing. There are two active versions:
+- **IPv4**: e.g., `192.168.1.100` (32-bit address)
+- **IPv6**: e.g., `2001:0db8:85a3::8a2e:0370:7334` (128-bit address)
 
-### Used By
+#### ICMP (Internet Control Message Protocol)
+Used for error reporting and network diagnostics.
+- **Example**: The `ping` utility uses ICMP.
+  ```bash
+  ping google.com
+  ```
 
-- HTTP
-- HTTPS
-- FTP
-- SMTP
-- SSH
+#### ARP (Address Resolution Protocol)
+Converts a logical IP Address into a physical MAC Address.
+- **Example**:
+  ```text
+  IP: 192.168.1.5  -->  MAC: 00:1A:2B:3C:4D:5E
+  ```
 
----
+#### IGMP (Internet Group Management Protocol)
+Used to manage multicast communication groups.
 
-## UDP (User Datagram Protocol)
-
-UDP is **connectionless**.
-
-It sends data without checking whether packets arrive successfully.
-
-### Features
-
-- Faster
-- No acknowledgement
-- No retransmission
-- No flow control
-- Less overhead
-
-### Used By
-
-- Video Streaming
-- Online Games
-- Live Broadcast
-- DNS Queries
-- VoIP
+### Device
+- **Router**: Works at the Internet layer to forward packets across different networks.
 
 ---
 
-## TCP vs UDP
+## Layer 1 – Network Access Layer (Link Layer)
 
-| TCP | UDP |
-|------|------|
-| Connection-oriented | Connectionless |
-| Reliable | Unreliable |
-| Slow | Fast |
-| Error checking | Minimal error checking |
-| Ordered delivery | No guaranteed order |
-| Used for websites | Used for streaming |
+This is the lowest layer of the TCP/IP model. It combines the physical transmission elements (OSI **Physical Layer**) and local framing logic (OSI **Data Link Layer**).
 
----
+### Functions
+- Packaging packets into physical frames.
+- MAC addressing.
+- Link-level error detection.
+- Raw bit physical transmission.
+- Access to physical media.
 
-# Layer 2 – Internet Layer
-
-The **Internet Layer** is responsible for moving packets from the source network to the destination network.
-
-This layer performs routing using logical IP addresses.
-
-## Functions
-
-- Routing
-- Logical Addressing
-- Packet Forwarding
-- Path Selection
-- Fragmentation
-
----
-
-## Important Protocols
-
-### IP (Internet Protocol)
-
-Provides logical addressing.
-
-There are two versions:
-
-- IPv4
-- IPv6
-
-Example IPv4:
-
-```
-192.168.1.100
-```
-
-Example IPv6:
-
-```
-2001:0db8:85a3::8a2e:0370:7334
-```
-
----
-
-### ICMP (Internet Control Message Protocol)
-
-Used for:
-
-- Error reporting
-- Network diagnostics
-
-Example:
-
-```
-ping google.com
-```
-
-uses ICMP.
-
----
-
-### ARP (Address Resolution Protocol)
-
-Converts
-
-```
-IP Address → MAC Address
-```
-
-Example:
-
-```
-192.168.1.5
-↓
-
-00:1A:2B:3C:4D:5E
-```
-
----
-
-### IGMP
-
-Used for multicast communication.
-
----
-
-## Device
-
-**Router**
-
-A router works at the Internet layer by forwarding packets between different networks.
-
----
-
-# Layer 1 – Network Access Layer (Link Layer)
-
-This is the lowest layer of the TCP/IP model.
-
-It combines the **Physical Layer** and **Data Link Layer** of the OSI model.
-
-It is responsible for actually transmitting data over cables or wireless signals.
-
----
-
-## Functions
-
-- Framing
-- MAC Addressing
-- Error Detection
-- Physical Transmission
-- Access to Physical Media
-
----
-
-## Protocols
-
+### Protocols
 - Ethernet
 - Wi-Fi (IEEE 802.11)
-- PPP
+- PPP (Point-to-Point Protocol)
 - Frame Relay
 
----
-
-## Devices
-
+### Devices
 - Switch
 - Hub
 - Bridge
@@ -285,149 +175,101 @@ It is responsible for actually transmitting data over cables or wireless signals
 
 ---
 
-# Data Encapsulation in TCP/IP
+## Data Encapsulation in TCP/IP
 
 | Layer | Data Unit |
-|--------|-----------|
-| Application | Data |
-| Transport | Segment |
-| Internet | Packet |
-| Network Access | Frame |
-| Physical Medium | Bits |
+| :--- | :--- |
+| **Application** | Data |
+| **Transport** | Segment |
+| **Internet** | Packet |
+| **Network Access** | Frame |
+| **Physical Medium** | Bits |
 
 ---
 
-# Example: Accessing a Website
+## Example: Accessing a Website
 
-Suppose you type:
-
-```
-www.google.com
-```
+Suppose you type `www.google.com` in your browser:
 
 ### Step 1 – Application Layer
-
-- Browser creates HTTP request.
+- Browser creates an HTTP request.
 - DNS finds Google's IP address.
 
-↓
-
 ### Step 2 – Transport Layer
-
 - TCP divides the request into segments.
 - Adds source and destination port numbers.
 
-↓
-
 ### Step 3 – Internet Layer
-
-- IP adds source and destination IP addresses.
-- Router determines the best path.
-
-↓
+- IP adds source and destination IP addresses to create packets.
+- Routers determine the best path.
 
 ### Step 4 – Network Access Layer
-
-- Ethernet creates frames.
+- Ethernet or Wi-Fi creates frames.
 - MAC addresses are added.
-- Data is transmitted as bits over cable or Wi-Fi.
+- Data is transmitted as bits over the cable or wireless medium.
 
-At the destination, the process is reversed until the browser displays the webpage.
+*At the destination, the process is reversed (decapsulation) until the browser renders the page.*
 
 ---
 
-# TCP/IP vs OSI Model
+## TCP/IP vs OSI Model Comparison
 
 | TCP/IP Layer | OSI Equivalent |
-|--------------|----------------|
-| Application | Application + Presentation + Session |
-| Transport | Transport |
-| Internet | Network |
-| Network Access | Data Link + Physical |
+| :--- | :--- |
+| **Application** | Application + Presentation + Session |
+| **Transport** | Transport |
+| **Internet** | Network |
+| **Network Access** | Data Link + Physical |
 
 ---
 
-# Advantages of TCP/IP
+## Advantages of TCP/IP
 
-- Internet standard.
-- Platform independent.
-- Scalable.
-- Reliable communication.
-- Supports routing.
-- Flexible architecture.
-- Open protocol suite.
-- Easy to expand.
+- Industry standard for the Internet.
+- Platform independent (works with any OS or hardware).
+- Highly scalable and flexible.
+- Highly reliable communication protocols.
+- Native support for complex routing.
 
 ---
 
-# Disadvantages of TCP/IP
+## Disadvantages of TCP/IP
 
 - Does not clearly separate Session and Presentation layers.
-- More complex to troubleshoot than OSI.
-- No strict layer separation.
-- Security depends on implementation rather than the model itself.
+- Can be more complex to troubleshoot than the layered OSI model.
+- Less separation between protocol interfaces and implementation.
+- Security protocols must be implemented at the application level.
 
 ---
 
-
----
-
-# Common Interview Questions
+## Common Interview Questions
 
 ### 1. How many layers are there in the TCP/IP model?
-
-**Answer:** 4
-
----
+**Answer:** 4 layers (Application, Transport, Internet, Network Access).
 
 ### 2. Which layer performs routing?
-
-**Answer:** Internet Layer
-
----
+**Answer:** Internet Layer.
 
 ### 3. Which protocol is connection-oriented?
-
-**Answer:** TCP
-
----
+**Answer:** TCP.
 
 ### 4. Which protocol is connectionless?
-
-**Answer:** UDP
-
----
+**Answer:** UDP.
 
 ### 5. Which protocol converts domain names into IP addresses?
-
-**Answer:** DNS
-
----
+**Answer:** DNS.
 
 ### 6. Which protocol converts IP addresses into MAC addresses?
-
-**Answer:** ARP
-
----
+**Answer:** ARP.
 
 ### 7. Which protocol is used for error reporting?
-
-**Answer:** ICMP
-
----
+**Answer:** ICMP.
 
 ### 8. Which device performs routing?
-
-**Answer:** Router
-
----
+**Answer:** Router.
 
 ### 9. Which layer combines the OSI Physical and Data Link layers?
-
-**Answer:** Network Access Layer
-
----
+**Answer:** Network Access Layer.
 
 ### 10. Which protocol is used for secure web browsing?
-
-**Answer:** HTTPS
+**Answer:** HTTPS.

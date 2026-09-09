@@ -1,91 +1,128 @@
-```SQL
-# LAB EXPERIMENT 3.2
+# SQL Group By and Aggregations
+
+Examples of SQL aggregation functions (`SUM()`, `MIN()`, `MAX()`, `AVG()`, `COUNT()`) combined with the `GROUP BY` clause.
+
+---
+
+## 1. Schema and Sample Data Setup
+
+```sql
 CREATE TABLE employees (
     emp_id INT PRIMARY KEY,
     emp_name VARCHAR(100) NOT NULL,
     emp_salary DECIMAL(10, 2) NOT NULL,
-      emp_city VARCHAR(100) NOT NULL
+    emp_city VARCHAR(100) NOT NULL
 );
 
-INSERT INTO employees (emp_id, emp_name, emp_salary, emp_city) VALUES
+INSERT INTO employees (emp_id, emp_name, emp_salary, emp_city) 
+VALUES
 (101, 'Amit Sharma', 85000.00, 'Mumbai'),
 (102, 'Priya Patel', 95000.00, 'Mumbai'),
 (103, 'Rahul Verma', 60000.00, 'Delhi'),
 (104, 'Ananya Iyer', 110000.00, 'Bangalore'),
 (105, 'Vikram Singh', 55000.00, 'Delhi'),
 (106, 'Sneha Reddy', 105000.00, 'Bangalore'),
-(107, 'Rohan Das', 72000.00, 'Kolkata')
+(107, 'Rohan Das', 72000.00, 'Kolkata');
+```
 
--- AGGREGATE FUNCTION -> SUM(),MIN(),MAX(),AVG(),COUNT()
+---
 
--- COUNT NUMBER OF EMPLOYEES IN EACH CITY
--- (I)
-SELECT emp_city,COUNT(*) AS EMP_COUNT
+## 2. Basic Grouping and Counting
+
+### Count the Number of Employees in Each City
+
+#### Option A: Count all records (`COUNT(*)`)
+```sql
+SELECT emp_city, COUNT(*) AS emp_count
 FROM employees
-GROUP BY EMP_CITY
+GROUP BY emp_city;
+```
 
--- (II)
-
-SELECT emp_city,COUNT(EMP_ID) AS EMP_COUNT
+#### Option B: Count matching IDs (`COUNT(emp_id)`)
+```sql
+SELECT emp_city, COUNT(emp_id) AS emp_count
 FROM employees
-GROUP BY EMP_CITY
+GROUP BY emp_city;
+```
 
--- FIND THE AVERAGE SALARY OF EACH CITY
+### Find the Average Salary in Each City
+Cast to `NUMERIC(20, 2)` for clean decimal precision formatting.
 
-SELECT emp_city,AVG(EMP_SALARY)::NUMERIC(20,2) AS AVG_SAL
+```sql
+SELECT emp_city, AVG(emp_salary)::NUMERIC(20, 2) AS avg_sal
 FROM employees
-GROUP BY EMP_CITY
+GROUP BY emp_city;
+```
 
+---
 
--- COUNT THE NUMBER OF EMPLOYEE IN EACH CITY WHOSE SALARY IS GREATER THAN EQUAL TO 90000 
---  AND SORT THE DATA ON THE BASIS OF EMP_CITY IN DESCEDING ORDER
-SELECT emp_city,SUM(CASE WHEN EMP_SALARY>=90000 THEN 1 ELSE 0 END) AS EMP_COUNT
+## 3. Conditional Aggregations and Sorting
+
+### Count Employees in Each City with Salary $\ge$ 90,000 (Sorted by City Descending)
+
+```sql
+SELECT emp_city, SUM(CASE WHEN emp_salary >= 90000 THEN 1 ELSE 0 END) AS emp_count
 FROM employees
-GROUP BY EMP_CITY
-ORDER BY EMP_CITY DESC
+GROUP BY emp_city;
+ORDER BY emp_city DESC;
+```
 
--- COUNT THE NUMBER OF EMPLOYEE IN EACH CITY WHOSE SALARY IS GREATER THAN EQUAL TO 90000 
---  AND SORT THE DATA ON THE BASIS OF EMP_CITY IN ASCENDING  ORDER
--- (I)
-SELECT emp_city,SUM(CASE WHEN EMP_SALARY>=90000 THEN 1 ELSE 0 END) AS EMP_COUNT
+### Count Employees in Each City with Salary $\ge$ 90,000 (Sorted by City Ascending)
+
+```sql
+-- Sorting explicitly ASC
+SELECT emp_city, SUM(CASE WHEN emp_salary >= 90000 THEN 1 ELSE 0 END) AS emp_count
 FROM employees
-GROUP BY EMP_CITY
-ORDER BY EMP_CITY ASC
+GROUP BY emp_city;
+ORDER BY emp_city ASC;
 
-
--- (II)
-SELECT emp_city,SUM(CASE WHEN EMP_SALARY>=90000 THEN 1 ELSE 0 END) AS EMP_COUNT
+-- Sorting implicitly (ASC is default)
+SELECT emp_city, SUM(CASE WHEN emp_salary >= 90000 THEN 1 ELSE 0 END) AS emp_count
 FROM employees
-GROUP BY EMP_CITY
-ORDER BY EMP_CITY
+GROUP BY emp_city;
+ORDER BY emp_city;
+```
 
--- COUNT THE NUMBER OF EMPLOYEE IN EACH CITY WHOSE SALARY IS GREATER THAN EQUAL TO 90000 
---  AND SORT THE DATA ON THE BASIS OF EMP_COUNT IN DECENDING  ORDER
+### Count Employees in Each City with Salary $\ge$ 90,000 (Sorted by Employee Count Descending)
 
--- (I)
-SELECT emp_city,SUM(CASE WHEN EMP_SALARY>=90000 THEN 1 ELSE 0 END) AS EMP_COUNT
+```sql
+-- Sorting by column alias
+SELECT emp_city, SUM(CASE WHEN emp_salary >= 90000 THEN 1 ELSE 0 END) AS emp_count
 FROM employees
-GROUP BY EMP_CITY
-ORDER BY    EMP_COUNT DESC
+GROUP BY emp_city;
+ORDER BY emp_count DESC;
 
--- (II)
-SELECT emp_city,SUM(CASE WHEN EMP_SALARY>=90000 THEN 1 ELSE 0 END) AS EMP_COUNT
+-- Sorting by the full expression
+SELECT emp_city, SUM(CASE WHEN emp_salary >= 90000 THEN 1 ELSE 0 END) AS emp_count
 FROM employees
-GROUP BY EMP_CITY
-ORDER BY SUM(CASE WHEN EMP_SALARY>=90000 THEN 1 ELSE 0 END)  DESC
+GROUP BY emp_city;
+ORDER BY SUM(CASE WHEN emp_salary >= 90000 THEN 1 ELSE 0 END) DESC;
+```
 
--- 
--- FIND THE MAXIMUM EMPLOYEE SALARY OF EACH CITY 
+> [!TIP]
+> A simpler, more standard way to filter rows before aggregation is using the `WHERE` clause instead of conditional `SUM(CASE WHEN ...)`:
+> ```sql
+> SELECT emp_city, COUNT(*) AS emp_count
+> FROM employees
+> WHERE emp_salary >= 90000
+> GROUP BY emp_city
+> ORDER BY emp_count DESC;
+> ```
 
-SELECT emp_city,MAX(EMP_SALARY) AS MAX_SALARY
+---
+
+## 4. Minimum and Maximum Aggregations
+
+### Find the Maximum Employee Salary in Each City
+```sql
+SELECT emp_city, MAX(emp_salary) AS max_salary
 FROM employees
-GROUP BY EMP_CITY
+GROUP BY emp_city;
+```
 
--- FIND THE MINIMUM EMPLYOEE SALARYOF EACH CITY
-SELECT emp_city,MIN(EMP_SALARY) AS MIN_SALARY
+### Find the Minimum Employee Salary in Each City
+```sql
+SELECT emp_city, MIN(emp_salary) AS min_salary
 FROM employees
-GROUP BY EMP_CITY
-
-
-
+GROUP BY emp_city;
 ```

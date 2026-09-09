@@ -18,7 +18,7 @@ Collection (Interface)
    |
    +-- Queue
          +-- PriorityQueue
-         +-- LinkedList
+         +-- Dequeue
 
 # Generics in Java
 Generics allow you to specify the type of data that a class, interface, or method can work with. They provide type safety, eliminate explicit type casting, and make code reusable.

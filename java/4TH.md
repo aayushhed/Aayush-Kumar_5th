@@ -1,385 +1,298 @@
-```java
-public class Demo{
-    int num;
-    Demo(int num){
-        this.num=num;
-    }
-    public void show(){
-        system.out.println(this);
-        public static void main(Strings[] args){
-            Demo d=nw Demo(10);
-            d.show();
-        }
-    }
-}
-```
+# Java Polymorphism, Inheritance, and final Keyword
 
+---
 
-HOW METHOD IS CALLED IN JAVA:
+## 1. Method Invocation and Overloading
 
-IT CHECKS:-->
-            1. EXISTANCE
-            2. EXACT MATCH---
-            3. UNIQUENESS --- CHECKS FOR DUPLICACY
+When a method is called in Java, the compiler and JVM check:
+1. **Existence**: Does the method exist?
+2. **Exact Match**: Do the parameter types and their order match?
+3. **Uniqueness**: Is the call unambiguous (no duplicate signatures)?
 
-METHOD BINDING:
-Method binding is the process of associating a method call with the actual method implementation that will be executed.
-
-
-
-
-# [METHOD OVERLOADING]
+### Method Overloading
+Method overloading allows a class to have multiple methods with the same name, as long as their parameter lists are different.
 
 ```java
 class Calculator {
-
+    // Overloaded add method with 2 parameters
     int add(int a, int b) {
         return a + b;
     }
 
+    // Overloaded add method with 3 parameters
     int add(int a, int b, int c) {
         return a + b + c;
     }
 
     public static void main(String[] args) {
         Calculator obj = new Calculator();
-
-        System.out.println(obj.add(5, 10));      // 15
-        System.out.println(obj.add(5, 10, 15));  // 30
+        System.out.println(obj.add(5, 10));      // Output: 15
+        System.out.println(obj.add(5, 10, 15));  // Output: 30
     }
 }
 ```
 
-METHOD-OVERLOADING:-----
-            1. NUMBER OF PARAMETER MUST BE DIFFERENT       (int a)   and (int a, int b)
-            2. TYPE OF PARAMETER IS DIFFERENT              (int a)   and  (double a)
-            3. SEQUENCE OF PARAMETER MUST BE DIFFERENT     (int a, double b)   and   (double a, int  a)
+### Rules of Method Overloading
+Overloaded methods must differ in at least one of the following:
+1. **Number of parameters**: e.g., `add(int a)` vs `add(int a, int b)`.
+2. **Type of parameters**: e.g., `add(int a)` vs `add(double a)`.
+3. **Sequence of parameter types**: e.g., `add(int a, double b)` vs `add(double a, int b)`.
 
-     NOTE:
-            1. WE CAN OVERLOAD STATIC AND NON STATIC AND CONSTRUCTOR IN JAVA.
-            2. WE CAN NOT OVERLAOD VARIABLE OR OPERATOR EXCEPT '+'.
-            3. WE CAN CALL MAIN METHOD.
-
-////////////////////////////
-
+> [!NOTE]
+> - We can overload static methods, non-static methods, and constructors.
+> - We **cannot** overload variables or operators (except the `+` operator, which is internally overloaded for string concatenation).
+> - Overloading is **not** determined by return type alone. Changing only the return type will result in a compile-time error.
 
 ```java
-public void show(){
-    System.out.print('a');
-
+// This will cause a compile-time error (duplicate method signature):
+public void show() {
+    System.out.print("a");
 }
 
-public string show(){
-    System.out.print('b');
+public String show() { // Error: Method show() is already defined
+    return "b";
 }
 ```
 
-HERE THERE WILL BE NO METHOD OVERLAODING BECAUSE THERE IS SAME NUMBER OF PARAMETER NAD NAME IS SAME.
-
-
-///////////////////////////////
+### Type Promotion in Overloading
+If an exact parameter match is not found, Java promotes the argument's type (e.g., `char` is promoted to `int` based on its ASCII value).
 
 ```java
-public class Demo{
-    int num;
-    Demo(int num){
-        this.num=num;
+public class Demo {
+    public void show() {
+        System.out.println("No-arg show");
     }
 
+    public void show(int num) {
+        System.out.println("Numeric representation: " + num);
+    }
 
-public void show(){
-    System.out.print('a');
-
-}
-
-public string show(int num){
-    System.out.print('HELLO'+num);
-}
-
-public static void main(String[] args){
-    Demo d= new Demo(10);
-    d.show('a');                                   //OUTPUT WILL BE HELLO 97  , here 97 is the ascii char for 'a';
-}
-
+    public static void main(String[] args) {
+        Demo d = new Demo();
+        d.show('a'); // Output: Numeric representation: 97 (ASCII value of 'a')
+    }
 }
 ```
 
-# [CONSTRUCTOR-CHAINING]
-```java
+---
 
-public class Demo{
-    static{
-        System.out.println()
-    }
-    Demo(){
-        this(10);
-        System.out.println("Constructor-1");
-    }
-    Demo(int num){
-        this(25.5);
-        System.out.println("Constructor-2"+num);
-    }
-    Demo(double a){
-        System.out.println("Constructor-3"+a);
+## 2. Constructor Chaining and Static Blocks
+
+### Constructor Chaining
+Constructor chaining is the process of calling one constructor from another constructor within the same class (using `this()`) or from the parent class (using `super()`).
+
+```java
+public class Demo {
+    Demo() {
+        this(10); // Calls the parameterized constructor Demo(int)
+        System.out.println("Constructor-1 (No-arg)");
     }
     
-    public static void main(String[] args){
-        Demo d= new Demo(10);
-        System.out.println("HELLO EVERYONE");
-}
-
+    Demo(int num) {
+        this(25.5); // Calls the parameterized constructor Demo(double)
+        System.out.println("Constructor-2 (int): " + num);
+    }
+    
+    Demo(double a) {
+        System.out.println("Constructor-3 (double): " + a);
+    }
+    
+    public static void main(String[] args) {
+        Demo d = new Demo(); 
+        // Execution Output:
+        // Constructor-3 (double): 25.5
+        // Constructor-2 (int): 10
+        // Constructor-1 (No-arg)
+    }
 }
 ```
 
+### Static Initialization Blocks
+- **Static Blocks** execute once when the class is first loaded into memory.
+- They run **before** the `main` method executes and before any objects are instantiated.
+- They are used to initialize static class resources.
 
-$$
+---
 
-STATIC BLOCK GETS ITS MEMORY ON THE CLASS LOADING TIME.
-STATIC EXECUTES AT THE TIME OF CLASS LOADING.
-STATIC RUNS BEFORE MAIN FUNCTION BECAUSE IT DONESNOT REQIURE MEMORY.
+## 3. Relationships in Java
 
-$$
+Objects can interact via two main types of relationships:
 
-RELATION-SHIP IN JAVA BETWEEN OBJECTS
-            1. HAS-A   ASSOCIATION    (waek) ---|
-                                                --> a.AGGREGATION  (weak)
-                                                --> b.COMPOSITION (strong)
-            2. IS-A    INHERITANCE    (strong)---|
-                                                --> a.extends 
-                                                -->b.implemnents    (interface)
+### 1. HAS-A Relationship (Association)
+Defines how classes are associated. It is a weak relationship.
+- **Aggregation**: A weak relationship where child objects can exist independently of the parent object.
+- **Composition**: A strong relationship where child objects cannot exist if the parent object is destroyed.
 
-
-# [ASSOCIATION]
+#### Association Example
 ```java
-public class Demo{
-    public void show(){
-        System.out.println("SHOW METHOD");
+public class Demo {
+    public void show() {
+        System.out.println("Show method");
     }
-        public static void main(Strings[] args){
-            Demo d=new Demo(10);
-            System.out.println("hello everyone");
-        }
-    }
-class Test{
-    public static void main(String[] args){
-        Demo d=ne Demo();
+}
+
+class Test {
+    public static void main(String[] args) {
+        Demo d = new Demo(); // Test HAS-A association with Demo
         d.show();
     }
 }
 ```
-# [INHERITANCE]
+
+### 2. IS-A Relationship (Inheritance)
+Defines parent-child class hierarchies. It is a strong relationship implemented using `extends` (for classes) or `implements` (for interfaces).
 
 ```java
-class Parent{
-    private int num;
-    int a;
-    public void show(){
-        System.out.println("Show method");
-    }
-}
-public class Demo extends Parent{
-    int a;
-
-}
-public static void main(String[] args){
-    Demo d=new Demo(10);
-    System.out.println("hello everyone");
-
-}
-```
---[TYPES OF JAVA]--
-            1. SINGLE LEVEL    A->B
-            2. MULTILEVEL      A->B->C
-            3. HEIRAICHAL            ->B
-                                  A--|
-                                     ->C
-            4. MULTIPLE    B--|
-                               -->A
-                           C--|
-
-MULTIPLE INHERITANCE CAUSES AMBIGUITY  SO THATS WHY INTERFACE IS USED FOR MULTIPLE INHERITANCE RATHER THAN CLASS
-
-
-# [METHOD-OVERRIDING]
-        IT IS A TECHNIQUE WE TRY TO CHANGE PARENT CLASS METHOD BODY IN CHILD CLASS.
-
-WE CAN OVERRIDE NON-STATIC METHOD AND WE CANNOT OVERRIDE STATIC METHOD IN JAVA.
-
-***[WHEN STATIC METHOD IS CREATED THRN  COMPILER GIVES DUPLICACY PROBLEM, TO SOLVE THIS METHOD HIDING IS IMPLEMENTED AND PARENT METHOD IS HIDDEN IN CHILD CLASS.]***
-
-***[CONSTRUCTOR IS NOT INHERITED AND NOT OVERRIDDEN.]***
-**[MAIN METHOD CAN BE INHERITED AND NOT OVERRIDDEN ]**
-
-```java
-class Parent{
-    private int num;
-    public static void main(String[] args){
-    Demo d=new Demo(10);
-    System.out.println("hello everyone");
-}
-}
-public class Demo extends Parent{
-    
-    public static void career(){
-        System.out.print("Parent choice");
-    }
-}
-```
-
-**[VARIABLE CAN NOT BE OVERRIDE IN JAVA]**
-**[OPERATORS CAN NOT BE OVERRIDE IN JAVA]**
-**[DATA HIDING]**
-
-
-[COMPILER EXTEND THE PARENT CLASS WITH OBJECT]
-
-```java
-class Parent extends Object{
-
-}
-public class Demo extends Parent{
-    
-}
-
-
-```
-# OBJECT 
-            1. Object have 13 non static method.
-            2. (toString) method is used to generate refrence id.(internally call hashcode())
-
-
-override toString Method
-
-```java
-class Parent extends Object{
-    int num=100;
-    public void show(){
-        System.out.println("SHOW METHOD");
-    }
-}
-public class Demo extends Parent{
-    
-    public String toString(){
-        return "hello";
-    }
-    public static void main(String[] args){
-        Demo d=new Demo(10);
-        System.out.println(d);
+class Parent {
+    int value = 10;
+    public void show() {
+        System.out.println("Parent show method");
     }
 }
 
-```
-To  check the refrence id using equal method.
-
-```java
-class Parent extends Object{
-    int num=100;
-    public void show(){
-        System.out.println("SHOW METHOD");
-    }
-}
-public class Demo extends Parent{
-    
-    public String toString(){
-        return "hello";
-    }
-    public static void main(String[] args){
-        Demo d1=new Demo(10);
-        Demo d2=new Demo(20);
-        System.out.println(d1.equal d2);                    //output== false
-    }
-}
-```
-
-
-To get the name of class 
-
-```java
-class Parent extends Object{
-    int num=100;
-    public void show(){
-        System.out.println("SHOW METHOD");
-    }
-}
-public class Demo extends Parent{
-    
-    public String toString(){
-        return "hello";
-    }
-    public static void main(String[] args){
-        Demo d1=new Demo(10);
-        Demo d2=new Demo(20);
-        System.out.println(d1.getClass().getName());                    
-    }
-}
-```
-
-
-# UPCASTING
- When we create the object of child class and store in the refrence variable of parent class.
-
-```java
-class Parent extends Object{
-
-}
-public class Demo extends Parent{
-    Parent d1= new demo(10);
-}                                                       // output gives parent class output
-
-```
-
-If the type of object is parent class so the parent class will run.
-
-# [FINAL]
-
-A final variable can be assigned only once. After initialization, its value cannot be changed.
-
-```java
-class Demo {
+public class Demo extends Parent {
     public static void main(String[] args) {
-        final int x = 10;
-        // x = 20;   // Error
-        System.out.println(x);
+        Demo d = new Demo();
+        d.show(); // Inherited method
+        System.out.println(d.value); // Inherited variable
     }
 }
 ```
+
+#### Types of Inheritance in Java
+1. **Single-Level**: Class B inherits from Class A.
+2. **Multi-Level**: Class C inherits from Class B, which inherits from Class A.
+3. **Hierarchical**: Class B and Class C both inherit from Class A.
+4. **Multiple Inheritance**: A class inherits from more than one class. **Java does not support multiple inheritance with classes** to avoid ambiguity (the "Diamond Problem"). It is achieved using **interfaces**.
+
+---
+
+## 4. Method Overriding and Hiding
+
+### Method Overriding
+Method overriding is redefining a parent class instance method in a child class with the exact same signature.
+- Only **non-static** methods can be overridden.
+- Constructors and `final` methods cannot be overridden.
+
+### Method Hiding
+If a child class defines a static method with the same signature as a static method in the parent class, the parent's method is **hidden**, not overridden. This is resolved at compile time.
+
 ```java
-A final method cannot be overridden by a subclass.
+class Parent {
+    public static void career() {
+        System.out.println("Parent choice");
+    }
+}
+
+public class Demo extends Parent {
+    public static void career() { // Method Hiding
+        System.out.println("Child choice");
+    }
+}
+```
+
+> [!NOTE]
+> - Instance variables **cannot** be overridden; they are resolved at compile time based on the reference type (shadowing/hiding).
+> - Operators cannot be overridden in Java.
+
+---
+
+## 5. Root `Object` Class
+
+Every class in Java implicitly extends the `java.lang.Object` class.
+
+### Commonly Overridden Methods
+1. **`toString()`**: Returns a string representation of the object. By default, it returns `ClassName@HashCode`.
+2. **`equals(Object obj)`**: Compares two object references for equality. By default, it checks if they point to the same memory location (`==`).
+
+#### Overriding `toString()`
+```java
+public class Demo {
+    @Override
+    public String toString() {
+        return "Custom Demo String";
+    }
+
+    public static void main(String[] args) {
+        Demo d = new Demo();
+        System.out.println(d); // Output: Custom Demo String
+    }
+}
+```
+
+#### Overriding `equals()`
+```java
+public class Demo {
+    int id;
+    
+    Demo(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Demo demo = (Demo) obj;
+        return this.id == demo.id;
+    }
+
+    public static void main(String[] args) {
+        Demo d1 = new Demo(10);
+        Demo d2 = new Demo(10);
+        System.out.println(d1.equals(d2)); // Output: true (since IDs match)
+        System.out.println(d1 == d2);      // Output: false (different object references)
+    }
+}
+```
+
+---
+
+## 6. Upcasting
+
+**Upcasting** is casting a child class object to a parent class reference variable. It is done implicitly.
+
+```java
+class Parent {}
+class Child extends Parent {}
+
+public class Demo {
+    public static void main(String[] args) {
+        Parent p = new Child(); // Upcasting
+    }
+}
+```
+
+---
+
+## 7. The `final` Keyword
+
+The `final` keyword is a non-access modifier used to restrict variables, methods, and classes.
+
+### 1. Final Variables
+Cannot be reassigned after initialization. Acts as a constant.
+```java
+final int x = 10;
+// x = 20; // Compile-time error!
+```
+
+### 2. Final Methods
+Cannot be overridden by subclasses.
+```java
 class Parent {
     final void show() {
-        System.out.println("Parent Method");
+        System.out.println("Final method in Parent");
     }
 }
 
 class Child extends Parent {
-    // void show() { }   // Error: Cannot override final method
-}
-
-public class Demo {
-    public static void main(String[] args) {
-        Child c = new Child();
-        c.show();
-    }
+    // void show() {} // Compile-time error!
 }
 ```
 
-A final class cannot be inherited (extended).
-
-
+### 3. Final Classes
+Cannot be inherited (extended).
 ```java
-
-final class Animal {
-    void sound() {
-        System.out.println("Animal Sound");
-    }
-}
-
-// class Dog extends Animal { }   // Error
-
-public class Demo {
-    public static void main(String[] args) {
-        Animal a = new Animal();
-        a.sound();
-    }
-}
+final class Animal {}
+// class Dog extends Animal {} // Compile-time error!
 ```
